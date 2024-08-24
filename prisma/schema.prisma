@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EstadoReserva {
+  PENDIENTE
+  PAGO_PARCIAL
+  PAGADA
+  CANCELADA
+}
+
+model Reserva {
+  id               String        @id @default(uuid())
+  fechaInicio      DateTime
+  fechaFin         DateTime
+  cantidadPersonas Int
+  precioTotal      Float
+  estado           EstadoReserva @default(PENDIENTE)
+  pagoParcial      Float?
+
+  unidad  Unidad  @relation(fields: [unidadId], references: [id])
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+
+  fechaHoraCreacion  DateTime @default(now())
+  fechaActualizacion DateTime @updatedAt
+
+  unidadId  Int
+  clienteId Int
+}
+
+model Unidad {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  capacidad Int
+  Reserva   Reserva[]
+}
+
+model Cliente {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  telefono String
+  email    String?
+  Reserva  Reserva[]
+}

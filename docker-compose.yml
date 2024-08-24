@@ -1,0 +1,13 @@
+services:
+  reservas-db:
+    image: postgres:16.2
+    container_name: reservas-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=reservasdb
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
