@@ -1,3 +1,4 @@
+import * as yup from 'yup';
 import prisma from '../../../lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
@@ -30,12 +31,67 @@ export async function GET(request: Request) {
 	return NextResponse.json(reservas);
 }
 
+let postSchema = yup.object({
+	fechaInicio: yup.string().datetime().required(),
+	fechaFin: yup.string().datetime().required(),
+	cantidadPersonas: yup.number().positive().integer().required(),
+	precioTotal: yup.number().positive().required(),
+	pagoParcial: yup.number().positive().optional(),
+	unidadId: yup.number().integer().required(),
+	clienteId: yup.number().integer().required(),
+});
+
 export async function POST(request: Request) {
-	const body = await request.json();
+	try {
+		const reserva = await request.json();
 
-	// const reserva = await prisma.reserva.create({
-	// 	data: body,
-	// });
+		const reservaValidada = await postSchema.validate(reserva, {
+			abortEarly: false,
+		});
 
-	return NextResponse.json(body);
+		if (await verificarDisponibilidad(reservaValidada)) {
+			const reservaCreada = await prisma.reserva.create({
+				data: reservaValidada,
+			});
+			return NextResponse.json(reservaCreada);
+		} else {
+			return NextResponse.json(
+				{
+					mensaje:
+						'Existe otra reserva registrada para las fechas y unidad seleccionadas.',
+				},
+				{ status: 400 }
+			);
+		}
+	} catch (error) {
+		return NextResponse.json(error.errors, { status: 400 });
+	}
+}
+
+async function verificarDisponibilidad(reserva: any) {
+	try {
+		const reservaEnConflicto = await prisma.reserva.findFirst({
+			where: {
+				unidadId: reserva.unidadId,
+				AND: [
+					{
+						unidadId: reserva.unidadId,
+						fechaInicio: {
+							lt: reserva.fechaFin,
+						},
+					},
+					{
+						unidadId: reserva.unidadId,
+						fechaFin: {
+							gt: reserva.fechaInicio,
+						},
+					},
+				],
+			},
+		});
+		return reservaEnConflicto ? false : true;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
 }
