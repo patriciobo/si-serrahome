@@ -3,12 +3,53 @@ import prisma from '../../../lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 
+interface OpcionesPaginacion {
+	pagina?: number;
+	take?: number;
+}
+
+export const getReservasPaginadas = async ({
+	pagina = 1,
+	take = 5,
+}: OpcionesPaginacion) => {
+	if (isNaN(Number(pagina) || pagina < 1)) pagina = 1;
+
+	try {
+		const reservas = await prisma.reserva.findMany({
+			take,
+			skip: (pagina - 1) * take,
+			include: {
+				cliente: {
+					select: {
+						nombre: true,
+						telefono: true,
+						email: true,
+					},
+				},
+			},
+			orderBy: { fechaHoraCreacion: 'desc' },
+		});
+
+		const totalReservas = await prisma.reserva.count({});
+		const cantidadPaginas = Math.ceil(totalReservas / take);
+
+		return {
+			paginaActual: pagina,
+			cantidadPaginas: cantidadPaginas,
+			totalReservas: totalReservas,
+			reservas,
+		};
+	} catch (error) {
+		throw new Error('No se pudo cargar las Reservas.');
+	}
+};
+
 export async function GET(request: Request) {
 	const parametros = request.nextUrl.searchParams;
 	console.log('params:', parametros);
 
-	const take = Number(parametros.get('take') ?? '10');
-	const skip = Number(parametros.get('skip') ?? '0');
+	const take = Number(parametros.get('take') ?? '5');
+	const skip = Number(parametros.get('pagina') ?? '1');
 
 	if (isNaN(take)) {
 		return NextResponse.json(
@@ -19,16 +60,17 @@ export async function GET(request: Request) {
 
 	if (isNaN(skip)) {
 		return NextResponse.json(
-			{ message: 'Skip debe ser un número' },
+			{ message: 'Pagna debe ser un número' },
 			{ status: 400 }
 		);
 	}
-	const reservas = await prisma.reserva.findMany({
-		take,
-		skip,
-	});
+	try {
+		const reservas = await getReservasPaginadas(pagina, take);
 
-	return NextResponse.json(reservas);
+		return NextResponse.json({ reservas });
+	} catch (error) {
+		return NextResponse.json(error.errors, { status: 400 });
+	}
 }
 
 let postSchema = yup.object({
