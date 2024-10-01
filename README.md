@@ -31,8 +31,8 @@ npx prisma generate
 ```
 npm run dev
 ```
-
-8. Ejecutar [SEED](localhost:3000/api/seed) para poblar la BD con datos de
+8. Navegador -> localhost:3000
+9. Ejecutar [SEED](localhost:3000/api/seed) para poblar la BD con datos de
    prueba
 
 ## Comandos Prisma
