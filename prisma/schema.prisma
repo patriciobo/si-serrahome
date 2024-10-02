@@ -20,6 +20,7 @@ enum EstadoReserva {
   CANCELADA
 }
 
+
 model Reserva {
   id               String        @id @default(uuid())
   fechaInicio      DateTime
@@ -40,10 +41,14 @@ model Reserva {
 }
 
 model Unidad {
-  id        Int       @id @default(autoincrement())
-  nombre    String
-  capacidad Int
-  Reserva   Reserva[]
+  id             Int       @id @default(autoincrement())
+  tipoUnidad     String    @default("TIPO_POR_DEFECTO")
+  nombre         String
+  capacidad      Int
+  servicios      String[]
+  precioPorNoche Float?
+  imagenes       String[]
+  Reserva        Reserva[]
 }
 
 model Cliente {
