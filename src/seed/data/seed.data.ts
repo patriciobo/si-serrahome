@@ -2,18 +2,30 @@ export const initialData = {
 	unidades: [
 		{
 			//id: 1
-			nombre: 'Cabaña 1',
+			tipoUnidad: 'Cabaña',
+			nombre: 'Rosada',
 			capacidad: 6,
+			servicios: ['aire', 'pileta', 'tele'],
+			precioPorNoche: 20000,
+			imagenes: ['imagen1', 'imagen5'],
 		},
 		{
 			//id: 2
-			nombre: 'Cabaña 2',
+			tipoUnidad: 'Cabaña',
+			nombre: 'Azul',
 			capacidad: 6,
+			servicios: ['aire', 'pileta', 'tele'],
+			precioPorNoche: 20000,
+			imagenes: ['imagen1', 'imagen2', 'imagen3'],
 		},
 		{
 			//id: 3
-			nombre: 'Cabaña 3',
+			tipoUnidad: 'Cabaña',
+			nombre: 'Naranja',
 			capacidad: 6,
+			servicios: ['aire', 'pileta', 'tele'],
+			precioPorNoche: 20000,
+			imagenes: ['imagen1', 'imagen2', 'imagen3', 'imagen4'],
 		},
 	],
 
