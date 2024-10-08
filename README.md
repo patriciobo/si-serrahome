@@ -40,7 +40,7 @@ npm run dev
 - Ejecutar en la db los cambios hechos en el modelo
 
 ```
-npx prisma migrate dev
+npx prisma migrate dev --name nombre_cambio
 ```
 
 - Regenerar Prisma Client basado en el schema.prisma (Si se hacen cambios que
