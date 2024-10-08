@@ -71,9 +71,9 @@ let unidadSchema = yup.object({
   tipoUnidad: yup.string().required('Tipo de Unidad es requerido'),
   nombre: yup.string().required('Nombre es requerido'),
   capacidadMaxima: yup.number().positive().integer().required('Capacidad máxima es requerida'),
-  servicios: yup.array().of(yup.string()).required('Servicios son requeridos'),
+  servicios: yup.array().of(yup.string().required()).min(1, 'Debe seleccionar al menos un servicio').required('Servicios son requeridos'),
   precioPorNoche: yup.number().positive().optional(),
-  imagenes: yup.array().of(yup.string().url()).optional(),
+  imagenes: yup.array().of(yup.string().required()).min(1, 'Debe proporcionar al menos una imagen').required('Imagenes son requeridas'),
 });
 
 
@@ -86,15 +86,23 @@ export async function POST(request: Request) {
       abortEarly: false,
     });
 
-   
+    const serviciosFiltrados = unidadValidada.servicios.filter(
+      (servicio: string) => servicio !== undefined && servicio !== null
+    );
+
+    const imagenesFiltradas = unidadValidada.imagenes?.filter(
+      (imagen) => typeof imagen == 'string' && imagen.trim().length > 0
+    );
+
+
     const unidadCreada = await prisma.unidad.create({
       data: {
         tipoUnidad: unidadValidada.tipoUnidad,
         nombre: unidadValidada.nombre,
         capacidad: unidadValidada.capacidadMaxima,
-        servicios: unidadValidada.servicios || [],
+        servicios: serviciosFiltrados,
         precioPorNoche: unidadValidada.precioPorNoche ?? null,
-        imagenes: unidadValidada.imagenes || [],
+        imagenes: imagenesFiltradas,
       },
     });
     

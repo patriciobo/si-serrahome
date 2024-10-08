@@ -9,9 +9,9 @@ type Inputs = {
   tipoUnidad: string;
   nombre: string;
   capacidad: number;
-  servicios: string[]; 
+  servicios: string; 
   precioPorNoche?: number; 
-  imagenes: string[]; 
+  imagenes: string; 
 };
 
 export const ModalUnidad = () => {
@@ -32,9 +32,9 @@ export const ModalUnidad = () => {
       tipoUnidad: data.tipoUnidad,
       nombre: data.nombre,
       capacidad: +data.capacidad,
-      servicios: data.servicios, 
+      servicios: data.servicios.split(',').map((serv) => serv.trim()),
       precioPorNoche: data.precioPorNoche ? +data.precioPorNoche : undefined, 
-      imagenes: data.imagenes,
+      imagenes: data.imagenes.split(',').map((img) => img.trim()),
     };
 
     try {
@@ -148,9 +148,7 @@ export const ModalUnidad = () => {
                       {...register('servicios', {
                         required: true,
                         validate: (value) => {
-                          // Validación personalizada para asegurarse de que no está vacío
-                          const serviciosArray = value.split(',').map((s) => s.trim());
-                          return serviciosArray.length > 0 && serviciosArray.every((s) => s.length > 0);
+                          return value.trim().length > 0;
                         },
                       })}
                     />
@@ -179,8 +177,7 @@ export const ModalUnidad = () => {
                       {...register('imagenes', {
                         required: true,
                         validate: (value) => {
-                          const imagenesArray = value.split(',').map((s) => s.trim());
-                          return imagenesArray.length > 0 && imagenesArray.every((s) => s.length > 0);
+                          return value.trim().length > 0;
                         },
                       })}
                     />

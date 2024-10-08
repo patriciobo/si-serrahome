@@ -18,37 +18,56 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
         </div>
         <div className='ml-3'>
           <div className='w-full max-w-sm min-w-[200px] relative'>
-            <input
-              type='text'
-              id='input-group-search'
-              className='block p-2 pl-2 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500'
-              placeholder='Buscar Unidad'
-            />
+            <div className='relative'>
+              <input
+                className='bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md'
+                placeholder='Buscar Unidad...'
+              />
+              <button
+                className='absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded '
+                type='button'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth='3'
+                  stroke='currentColor'
+                  className='w-8 h-8 text-slate-600'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className='overflow-x-auto shadow-md sm:rounded-lg'>
-        <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
-          <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+      <div className='relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border'>
+        <table className='w-full text-center text-sm table-auto min-w-max'>
+          <thead>
             <tr>
-              <th scope='col' className='px-6 py-3'>
-                Nombre
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Nombre</p>
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Tipo de Unidad
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Tipo de Unidad</p>
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Capacidad
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Capacidad</p>
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Servicios
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Servicios</p>
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Precio por Noche
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Precio por Noche</p>
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Imagenes
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Imagenes</p>
               </th>
             </tr>
           </thead>
@@ -62,21 +81,31 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
             )}
             {unidades.length > 0 &&
               unidades.map((unidad, index) => (
-                <tr
-                  key={index}
-                  className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
-                >
-                  <td className='px-6 py-4'>{unidad.nombre}</td>
-                  <td className='px-6 py-4'>{unidad.tipoUnidad}</td>
-                  <td className='px-6 py-4'>{unidad.capacidad}</td>
-                  <td className='px-6 py-4'>{unidad.servicios.join(', ')}</td>
-                  <td className='px-6 py-4'>{unidad.precioPorNoche}</td>
-                  <td className='px-6 py-4'>{unidad.imagenes.join(', ')}</td>
+                <tr key={index} className='hover:bg-slate-50 border-b border-slate-200'>
+                  <td className='p-4 py-5'>
+                    <p className='block font-semibold text-slate-800'>{unidad.nombre}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>{unidad.tipoUnidad}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>{unidad.capacidad}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>{unidad.servicios.join(', ')}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>${unidad.precioPorNoche}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>{unidad.imagenes.join(', ')}</p>
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
+
       <Paginacion cantidadPaginas={cantidadPaginas} totalRegistros={totalUnidades} entidad='Unidades' />
     </div>
   );
