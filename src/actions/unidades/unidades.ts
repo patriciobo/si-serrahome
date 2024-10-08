@@ -35,11 +35,11 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
     throw new Error('Debe seleccionar al menos un servicio.');
   }
 
-  if (!Array.isArray(unidadInput.imagenes) || unidadInput.imagenes.length === 0 || unidadInput.imagenes.length > 5) {
-    throw new Error('Debe subir entre 1 y 5 imágenes.');
+  if (!Array.isArray(unidadInput.imagenes) || unidadInput.imagenes.length === 0) {
+    throw new Error('Debe proporcionar al menos una imagen');
   }
 
-  
+  /*
   const formatosPermitidos = ['jpg', 'jpeg', 'png'];
   for (const imagen of unidadInput.imagenes) {
     const extension = imagen.split('.').pop()?.toLowerCase();
@@ -47,7 +47,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
       throw new Error('El formato de las imágenes debe ser JPG o PNG.');
     }
   }
-
+*/
   try {
     const unidadCreada = await prisma.unidad.create({
       data: {
