@@ -69,6 +69,9 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
               <th className='p-4 border-b border-slate-200 bg-slate-50'>
                 <p className='font-normal leading-none text-slate-500'>Imagenes</p>
               </th>
+              <th className='p-4 border-b border-slate-200 bg-slate-50'>
+                <p className='font-normal leading-none text-slate-500'>Propiedad</p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -99,6 +102,9 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
                   </td>
                   <td className='p-4 py-5'>
                     <p className='font-semibold text-slate-500'>{unidad.imagenes.join(', ')}</p>
+                  </td>
+                  <td className='p-4 py-5'>
+                    <p className='font-semibold text-slate-500'>{unidad.propiedadId}</p>
                   </td>
                 </tr>
               ))}

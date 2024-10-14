@@ -12,6 +12,7 @@ type Inputs = {
   servicios: string; 
   precioPorNoche?: number; 
   imagenes: string; 
+  //propiedadId: number;
 };
 
 export const ModalUnidad = () => {
@@ -35,6 +36,7 @@ export const ModalUnidad = () => {
       servicios: data.servicios.split(',').map((serv) => serv.trim()),
       precioPorNoche: data.precioPorNoche ? +data.precioPorNoche : undefined, 
       imagenes: data.imagenes.split(',').map((img) => img.trim()),
+      //propiedadId: data.propiedadId,  ??
     };
 
     try {

@@ -11,6 +11,7 @@ interface NuevaUnidadInput {
   servicios: string[];
   precioPorNoche?: number; 
   imagenes: string[];
+  //propiedadId: number;
 }
 
 export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
@@ -57,6 +58,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
         servicios: unidadInput.servicios,
         precioPorNoche: unidadInput.precioPorNoche,
         imagenes: unidadInput.imagenes,
+        //propiedadId: unidadInput.propiedadId,
       },
     });
 

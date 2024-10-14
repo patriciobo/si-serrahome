@@ -49,6 +49,9 @@ model Unidad {
   precioPorNoche Float?
   imagenes       String[]
   Reserva        Reserva[]
+
+  propiedad Propiedad @relation(fields: [propiedadId], references: [id])
+  propiedadId Int     
 }
 
 model Cliente {
@@ -57,4 +60,15 @@ model Cliente {
   telefono String
   email    String?
   Reserva  Reserva[]
+}
+
+model Propiedad {
+  id               Int         @id @default(autoincrement())
+  nombre            String
+  //calle             String[]
+  //calleId           Int
+  //numero            Int
+  tipo              String
+
+  Unidad Unidad[]
 }

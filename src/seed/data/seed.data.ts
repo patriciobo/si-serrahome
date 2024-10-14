@@ -2,12 +2,14 @@ export const initialData = {
 	unidades: [
 		{
 			//id: 1
-			tipoUnidad: 'Cabaña',
+			tipoUnidad: 'Casa',
 			nombre: 'Rosada',
 			capacidad: 6,
 			servicios: ['aire', 'pileta', 'tele'],
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen5'],
+			propiedadId: 1,
+			
 		},
 		{
 			//id: 2
@@ -17,6 +19,7 @@ export const initialData = {
 			servicios: ['aire', 'pileta', 'tele'],
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen2', 'imagen3'],
+			propiedadId: 2,
 		},
 		{
 			//id: 3
@@ -26,6 +29,7 @@ export const initialData = {
 			servicios: ['aire', 'pileta', 'tele'],
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen2', 'imagen3', 'imagen4'],
+			propiedadId: 2,
 		},
 	],
 
@@ -119,4 +123,24 @@ export const initialData = {
 			clienteId: 1,
 		},
 	],
+
+	propiedades: [
+		{
+			//id: 1,
+			nombre: 'Alto Las Flores',
+			//calle: 'bbb42069',
+			//calleId: 1,
+			//numero: 1,
+			tipo: 'Casa',
+		},
+		{
+			//id: 2,
+			nombre: 'Bajo Las Flores',
+			//calle: 'bbb42069',
+			//calleId: 1,
+			//numero: 1,
+			tipo: 'Cabaña',
+		},
+	],
+
 };
