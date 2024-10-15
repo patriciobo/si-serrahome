@@ -32,6 +32,12 @@ const menuItems = [
 		title: 'Unidades',
 		subtitle: 'Disponibilidad',
 	},
+	{
+		path: '/dashboard/propiedades',
+		icon: <CiCalendar size={20} />,
+		title: 'Propiedades',
+		subtitle: 'Disponibilidad',
+	},
 ];
 
 export const Sidebar = () => {

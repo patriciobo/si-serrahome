@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,7 +13,6 @@ enum EstadoReserva {
   PAGADA
   CANCELADA
 }
-
 
 model Reserva {
   id               String        @id @default(uuid())
@@ -49,12 +42,54 @@ model Unidad {
   precioPorNoche Float?
   imagenes       String[]
   Reserva        Reserva[]
+  propiedadId    Int
+  propiedad      Propiedad @relation(fields: [propiedadId], references: [id])
 }
 
 model Cliente {
   id       Int       @id @default(autoincrement())
   nombre   String
   telefono String
-  email    String?
-  Reserva  Reserva[]
+  email    String
+  reserva  Reserva[]
+}
+
+model Pais {
+  id         Int         @id @default(autoincrement())
+  nombre     String
+  provincias Provincia[]
+}
+
+model Provincia {
+  id       Int      @id @default(autoincrement())
+  nombre   String
+  paisId   Int
+  pais     Pais     @relation(fields: [paisId], references: [id])
+  ciudades Ciudad[]
+}
+
+model Ciudad {
+  id          Int       @id @default(autoincrement())
+  nombre      String
+  provinciaId Int
+  provincia   Provincia @relation(fields: [provinciaId], references: [id])
+  calles      Calle[]
+}
+
+model Calle {
+  id          Int         @id @default(autoincrement())
+  nombre      String
+  ciudadId    Int
+  ciudad      Ciudad      @relation(fields: [ciudadId], references: [id])
+  propiedades Propiedad[]
+}
+
+model Propiedad {
+  id       Int      @id @default(autoincrement())
+  nombre   String
+  calleId  Int
+  calle    Calle    @relation(fields: [calleId], references: [id])
+  numero   Int
+  tipo     String
+  unidades Unidad[]
 }
