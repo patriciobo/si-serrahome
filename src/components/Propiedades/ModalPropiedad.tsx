@@ -119,10 +119,42 @@ export const ModalPropiedad = () => {
                       {...register('tipo', { required: true })}
                     />
                   </div>
+                  <div className="flex flex-wrap -mx-3 mb-2">
+                  <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      
+      <div className="relative">
+        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          <option>Argentina</option>
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        </div>
+      </div>
+    </div>
+    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <div className="relative">
+        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          <option>Cordoba</option>
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        </div>
+      </div>
+    </div>
+    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <div className="relative">
+        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          <option>General Paz</option>
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="flex flex-wrap -mx-3 mb-6">
+    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
 
-                  
-
-                  <div className=''>
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="Calle"/>
+    </div>
+    <div className=''>
                     <label className='sr-only'>Numero</label>
                     <input
                       className={`w-full rounded-lg border-gray-400 text-md text-oscuro ${
@@ -135,6 +167,13 @@ export const ModalPropiedad = () => {
                       {...register('numero', { required: true })}
                     />
                   </div>
+  </div>
+        
+
+
+                  
+
+                  
                       
                   <div className='flex mt-4 items-center justify-end'>
                     {hasErrors && (
