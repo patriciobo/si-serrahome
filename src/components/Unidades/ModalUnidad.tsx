@@ -4,6 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { insertarUnidad } from '../../actions/unidades/unidades';
 import { BiCheck } from 'react-icons/bi';
+import Select from 'react-select';
+import AsyncSelect from 'react-select/async'
+import { only } from 'node:test';
+import SelectServicios from '../commons/AsyncSelect';
 
 type Inputs = {
   tipoUnidad: string;
@@ -18,6 +22,7 @@ export const ModalUnidad = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mostrarToast, setMostrarToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [serviciosSeleccionados, setServiciosSeleccionados] = useState<any[]>([]);
 
   const {
     register,
@@ -32,7 +37,8 @@ export const ModalUnidad = () => {
       tipoUnidad: data.tipoUnidad,
       nombre: data.nombre,
       capacidad: +data.capacidad,
-      servicios: data.servicios.split(',').map((serv) => serv.trim()),
+      servicios: serviciosSeleccionados.map((servicio) => servicio.value),
+      // servicios: data.servicios.split(',').map((serv) => serv.trim()),
       precioPorNoche: data.precioPorNoche ? +data.precioPorNoche : undefined, 
       imagenes: data.imagenes.split(',').map((img) => img.trim()),
     };
@@ -41,6 +47,7 @@ export const ModalUnidad = () => {
       await insertarUnidad(unidad);
       setMostrarToast(true);
       reset();
+      setServiciosSeleccionados([]);
       setIsOpen(false);
       setErrorMessage(null); 
     } catch (error) {
@@ -139,18 +146,9 @@ export const ModalUnidad = () => {
                     />
                   </div>
 
-                  <div className=''>
-                    <label className='sr-only'>Servicios</label>
-                    <input
-                      className='w-full rounded-lg border-gray-400 text-md text-oscuro focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
-                      placeholder='Servicios (separados por comas)'
-                      type='text'
-                      {...register('servicios', {
-                        required: true,
-                        validate: (value) => {
-                          return value.trim().length > 0;
-                        },
-                      })}
+                  <div className=' rounded-lg border-gray-400 text-md text-oscuro focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'>
+                    <SelectServicios
+                      onChange={(selected) => setServiciosSeleccionados(selected)}
                     />
                   </div>
 
@@ -190,8 +188,7 @@ export const ModalUnidad = () => {
                     <button
                       className='shadow text-md bg-white border mr-4 border-naranja hover:bg-naranja hover:text-white focus:outline-none text-naranja font-bold py-2 px-4 rounded'
                       type='button'
-                      onClick={() => setIsOpen(false)}
-                    >
+                      onClick={() => setIsOpen(false)}>
                       Cancelar
                     </button>
                     <button
@@ -209,4 +206,5 @@ export const ModalUnidad = () => {
       )}
     </>
   );
-};
+}; 
+

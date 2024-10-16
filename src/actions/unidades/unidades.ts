@@ -54,10 +54,12 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
         tipoUnidad: unidadInput.tipoUnidad,
         nombre: unidadInput.nombre,
         capacidad: unidadInput.capacidad,
-        servicios: unidadInput.servicios,
+        // servicios: unidadInput.servicios,
         precioPorNoche: unidadInput.precioPorNoche,
         imagenes: unidadInput.imagenes,
-      },
+
+      }
+    
     });
 
     

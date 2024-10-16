@@ -1,15 +1,33 @@
 import React from 'react';
-import { Unidad } from '@prisma/client';
+import { ServiciosXUnidad, Unidad } from '@prisma/client';
 import { Paginacion } from '../commons/Paginacion';
 
+interface UnidadConServicios {
+  id: number;
+  tipoUnidad: string;
+  nombre: string;
+  capacidad: number;
+  precioPorNoche: number | null;
+  imagenes: string[];
+  servicios: {
+    servicio: {
+      nombre: string;
+    };
+  }[];
+}
+
 interface Props {
-  unidades: Unidad[];
+  unidades: UnidadConServicios[];
   cantidadPaginas: number;
   paginaActual?: number;
   totalUnidades: number;
+  serviciosxunidad: ServiciosXUnidad[];
 }
 
-export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }: Props) => {
+export const TablaUnidades = ({ unidades = [], serviciosxunidad = [], totalUnidades, cantidadPaginas }: Props) => {
+  
+  
+
   return (
     <div className='mx-auto'>
       <div className='w-full flex justify-between items-center mb-3 mt-1 pl-3'>
@@ -92,7 +110,7 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
                     <p className='font-semibold text-slate-500'>{unidad.capacidad}</p>
                   </td>
                   <td className='p-4 py-5'>
-                    <p className='font-semibold text-slate-500'>{unidad.servicios.join(', ')}</p>
+                    <p className='font-semibold text-slate-500'>{unidad.servicios.map((servicioXUnidad) => servicioXUnidad.servicio.nombre).join(', ')} </p>
                   </td>
                   <td className='p-4 py-5'>
                     <p className='font-semibold text-slate-500'>${unidad.precioPorNoche}</p>

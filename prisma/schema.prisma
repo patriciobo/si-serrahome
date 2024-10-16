@@ -45,10 +45,11 @@ model Unidad {
   tipoUnidad     String    @default("TIPO_POR_DEFECTO")
   nombre         String
   capacidad      Int
-  servicios      String[]
+  servicios      ServiciosXUnidad[] 
   precioPorNoche Float?
   imagenes       String[]
   Reserva        Reserva[]
+
 }
 
 model Cliente {
@@ -57,4 +58,21 @@ model Cliente {
   telefono String
   email    String?
   Reserva  Reserva[]
+}
+
+model Servicio {
+  id       Int      @id @default(autoincrement())
+  nombre   String   @unique
+  unidad   ServiciosXUnidad[]
+}
+
+
+
+model ServiciosXUnidad {
+  unidad       Unidad     @relation(fields: [unidadId], references: [id])
+  unidadId     Int 
+  servicios  Servicio @relation(fields: [servicioId], references: [id])
+  servicioId Int
+
+  @@id([unidadId, servicioId])
 }

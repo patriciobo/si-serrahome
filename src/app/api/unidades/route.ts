@@ -15,10 +15,18 @@ export const getUnidadesPaginadas = async ({
 
   try {
     const unidades = await prisma.unidad.findMany({
+      include: {
+        servicios: { // Hace referencia a la relación ServiciosXUnidad
+          include: {
+            servicios: true // Aquí se refiere al modelo Servicio relacionado
+          }
+        }
+      },
       take,
       skip: (pagina - 1) * take,
       orderBy: { nombre: 'asc' },
     });
+    console.log(unidades);
 
     const totalUnidades = await prisma.unidad.count({});
     const cantidadPaginas = Math.ceil(totalUnidades / take);
@@ -100,7 +108,7 @@ export async function POST(request: Request) {
         tipoUnidad: unidadValidada.tipoUnidad,
         nombre: unidadValidada.nombre,
         capacidad: unidadValidada.capacidadMaxima,
-        servicios: serviciosFiltrados,
+        // servicios: serviciosFiltrados,
         precioPorNoche: unidadValidada.precioPorNoche ?? null,
         imagenes: imagenesFiltradas,
       },
