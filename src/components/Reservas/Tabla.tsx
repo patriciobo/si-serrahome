@@ -2,15 +2,16 @@ import React from 'react';
 import { EstadoReserva, Reserva } from '@prisma/client';
 import { BiEnvelope } from 'react-icons/bi';
 import { BsWhatsapp } from 'react-icons/bs';
-import { Paginacion } from './Paginacion';
+import { Paginacion } from '../commons/Paginacion';
 
 interface Props {
 	reservas: Reserva[];
 	cantidadPaginas: number;
-	paginaActual: number;
+	totalReservas: number;
+	paginaActual?: number;
 }
 
-export const Tabla = ({ reservas = [], totalReservas, cantidadPaginas }) => {
+export const Tabla = ({ reservas = [], totalReservas, cantidadPaginas  } : Props) => {
 	return (
 		<div className='mx-auto'>
 			<div className='w-full flex justify-between items-center mb-3 mt-1 pl-3'>
@@ -176,6 +177,7 @@ export const Tabla = ({ reservas = [], totalReservas, cantidadPaginas }) => {
 				<Paginacion
 					totalRegistros={totalReservas}
 					cantidadPaginas={cantidadPaginas}
+					entidad='Reservas'
 				/>
 			</div>
 		</div>
