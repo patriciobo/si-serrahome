@@ -24,7 +24,7 @@ interface Props {
   serviciosxunidad: ServiciosXUnidad[];
 }
 
-export const TablaUnidades = ({ unidades = [], serviciosxunidad = [], totalUnidades, cantidadPaginas }: Props) => {
+export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }: Props) => {
   
   
 
