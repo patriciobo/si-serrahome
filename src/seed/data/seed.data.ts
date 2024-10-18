@@ -36,6 +36,38 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Rosada',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen5'],
 			
@@ -44,6 +76,38 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Azul',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen2', 'imagen3'],
 		},
@@ -51,6 +115,38 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Naranja',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
 			precioPorNoche: 20000,
 			imagenes: ['imagen1', 'imagen2', 'imagen3', 'imagen4'],
 		},
@@ -148,20 +244,5 @@ export const initialData = {
 			clienteId: 1,
 		},
 	],
-	
-	serviciosxunidad: [
-		{
-			unidadId: 1,
-			servicioId: 1,
-		}, 
-		{
-			unidadId: 2,
-			servicioId: 2,
-		},
-		{
-			unidadId: 3,
-			servicioId: 3,
-		},
-	]
 };
 

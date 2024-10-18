@@ -16,9 +16,9 @@ export const getUnidadesPaginadas = async ({
   try {
     const unidades = await prisma.unidad.findMany({
       include: {
-        servicios: { // Hace referencia a la relación ServiciosXUnidad
+        servicios: {
           include: {
-            servicios: true // Aquí se refiere al modelo Servicio relacionado
+            servicio: true 
           }
         }
       },
@@ -26,7 +26,7 @@ export const getUnidadesPaginadas = async ({
       skip: (pagina - 1) * take,
       orderBy: { nombre: 'asc' },
     });
-    console.log(unidades);
+    
 
     const totalUnidades = await prisma.unidad.count({});
     const cantidadPaginas = Math.ceil(totalUnidades / take);

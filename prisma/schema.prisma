@@ -43,7 +43,7 @@ model Reserva {
 model Unidad {
   id             Int       @id @default(autoincrement())
   tipoUnidad     String    @default("TIPO_POR_DEFECTO")
-  nombre         String
+  nombre         String    @unique
   capacidad      Int
   servicios      ServiciosXUnidad[] 
   precioPorNoche Float?
@@ -71,7 +71,7 @@ model Servicio {
 model ServiciosXUnidad {
   unidad       Unidad     @relation(fields: [unidadId], references: [id])
   unidadId     Int 
-  servicios  Servicio @relation(fields: [servicioId], references: [id])
+  servicio  Servicio @relation(fields: [servicioId], references: [id])
   servicioId Int
 
   @@id([unidadId, servicioId])

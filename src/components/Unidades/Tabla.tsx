@@ -2,22 +2,8 @@ import React from 'react';
 import { ServiciosXUnidad, Unidad } from '@prisma/client';
 import { Paginacion } from '../commons/Paginacion';
 
-interface UnidadConServicios {
-  id: number;
-  tipoUnidad: string;
-  nombre: string;
-  capacidad: number;
-  precioPorNoche: number | null;
-  imagenes: string[];
-  servicios: {
-    servicio: {
-      nombre: string;
-    };
-  }[];
-}
-
 interface Props {
-  unidades: UnidadConServicios[];
+  unidades: Unidad[];
   cantidadPaginas: number;
   paginaActual?: number;
   totalUnidades: number;
@@ -110,8 +96,11 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
                     <p className='font-semibold text-slate-500'>{unidad.capacidad}</p>
                   </td>
                   <td className='p-4 py-5'>
-                    <p className='font-semibold text-slate-500'>{unidad.servicios.map((servicioXUnidad) => servicioXUnidad.servicio.nombre).join(', ')} </p>
-                  </td>
+                    <p className='font-semibold text-slate-500'>{unidad.servicios && unidad.servicios.length > 0
+                                                                      ? unidad.servicios.map((servicioXUnidad) => servicioXUnidad.servicio.nombre).join(", ")
+                                                                      : "Sin servicios"} 
+                    </p>
+                  </td> 
                   <td className='p-4 py-5'>
                     <p className='font-semibold text-slate-500'>${unidad.precioPorNoche}</p>
                   </td>
