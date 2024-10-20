@@ -30,6 +30,6 @@ export const getUnidadesPaginadas = async ({
       unidades,
     };
   } catch (error) {
-    throw new Error('No se pudo cargar las Unidades.');
+    throw new Error(`Error: ${error}`);
   }
 };

@@ -39,6 +39,6 @@ export const getReservasPaginadas = async ({
 			reservas,
 		};
 	} catch (error) {
-		throw new Error('No se pudo cargar las Reservas.');
+		throw new Error(`Error: ${error}`);
 	}
 };

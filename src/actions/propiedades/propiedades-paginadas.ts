@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
+import { NOMEM } from 'dns';
 
 interface OpcionesPaginacion {
   pagina?: number;
@@ -17,9 +18,32 @@ export const getPropiedadesPaginadas = async ({
     const propiedades = await prisma.propiedad.findMany({
       take,
       skip: (pagina - 1) * take,
-      orderBy: { id: 'asc' }, 
+      orderBy: { id: 'asc' },
+      include: {
+        calle: {
+          select: {
+            nombre: true,
+            ciudad: {
+              select: {
+                nombre: true,
+                provincia: {
+                  select: {
+                    nombre: true,
+                    pais: {
+                      select: {
+                        nombre: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
-
+    
+    console.log(propiedades)
     const totalPropiedades = await prisma.propiedad.count({});
     const cantidadPaginas = Math.ceil(totalPropiedades / take);
 
@@ -30,6 +54,6 @@ export const getPropiedadesPaginadas = async ({
       propiedades,
     };
   } catch (error) {
-    throw new Error('No se pudo cargar las Propiedades.');
+    throw new Error(`Error: ${error}`);
   }
 };

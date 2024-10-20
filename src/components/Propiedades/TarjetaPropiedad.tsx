@@ -6,9 +6,9 @@ interface Props {
   propiedades: Propiedad[];
 }
 
-export const PropCard = ({ propiedades = [] }: Props) => {
+export const TarjetaPropiedad = ({ propiedades = [] }: Props) => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {propiedades.map((propiedad, index) => (
         <div
           key={index}
@@ -29,6 +29,16 @@ export const PropCard = ({ propiedades = [] }: Props) => {
             <p className="md:text-lg text-gray-500 text-base">
               {propiedad.tipo}
             </p>
+            <p className="md:text-lg text-gray-500 text-base">
+              {propiedad.calle.ciudad.provincia.pais.nombre}
+              {", "}
+              {propiedad.calle.ciudad.provincia.nombre}
+            </p>
+            <p className="md:text-lg text-gray-500 text-base">
+              {propiedad.calle.ciudad.nombre}
+              {", "}
+              {propiedad.calle.nombre} {propiedad.numero}
+            </p>
           </div>
         </div>
       ))}
@@ -36,4 +46,4 @@ export const PropCard = ({ propiedades = [] }: Props) => {
   );
 };
 
-export default PropCard;
+export default TarjetaPropiedad;

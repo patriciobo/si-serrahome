@@ -39,15 +39,6 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
     throw new Error('Debe proporcionar al menos una imagen');
   }
 
-  /*
-  const formatosPermitidos = ['jpg', 'jpeg', 'png'];
-  for (const imagen of unidadInput.imagenes) {
-    const extension = imagen.split('.').pop()?.toLowerCase();
-    if (!extension || !formatosPermitidos.includes(extension)) {
-      throw new Error('El formato de las imágenes debe ser JPG o PNG.');
-    }
-  }
-*/
   try {
     const unidadCreada = await prisma.unidad.create({
       data: {
@@ -66,8 +57,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 
     return unidadCreada;
   } catch (error) {
-    console.error(error);
-    throw new Error('Fallo al insertar la unidad.');
+    throw new Error(`Error: ${error}`);
   }
 };
 

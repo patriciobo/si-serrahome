@@ -69,7 +69,6 @@ async function verificarDisponibilidad(reserva: Reserva) {
 		});
 		return reservaEnConflicto ? false : true;
 	} catch (error) {
-		console.error(error);
-		return false;
+		throw new Error(`Error: ${error}`);
 	}
 }

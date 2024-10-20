@@ -57,7 +57,6 @@ export const insertarPropiedad = async (propiedadInput: NuevaPropiedadInput) => 
 
     return propiedadCreada;
   } catch (error) {
-    console.error(error);
-    throw new Error('Fallo al insertar la propiedad.');
+    throw new Error(`Error: ${error}`);
   }
 };
