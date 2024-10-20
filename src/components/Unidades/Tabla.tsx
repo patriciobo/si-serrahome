@@ -1,6 +1,12 @@
+'use client';
+
 import React from 'react';
 import { ServiciosXUnidad, Unidad } from '@prisma/client';
 import { Paginacion } from '../commons/Paginacion';
+import { useState } from 'react';
+import { ChangeEvent } from 'react';
+import ImagesGallery from '../commons/ImagesGallery';
+
 
 interface Props {
   unidades: Unidad[];
@@ -11,8 +17,29 @@ interface Props {
 }
 
 export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }: Props) => {
+  const [search, setSearch] = useState("");
+  const [showGallery, setShowGallery] = useState(false); 
   
+  const buscador = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value)
+  }
+
+  let results = [];
+  if (!search) {
+    results = unidades;
+  } else {
+    results = unidades.filter( (dato: {nombre: string }) => 
+        dato.nombre.toLowerCase().includes(search.toLocaleLowerCase())
+      )
+  }
   
+  const handleShowGallery = () => {
+    setShowGallery(true);
+  };
+
+  const handleCloseGallery = () => {
+    setShowGallery(false);
+  };
 
   return (
     <div className='mx-auto'>
@@ -24,6 +51,8 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
           <div className='w-full max-w-sm min-w-[200px] relative'>
             <div className='relative'>
               <input
+                value={search}
+                onChange={buscador}
                 className='bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md'
                 placeholder='Buscar Unidad...'
               />
@@ -76,15 +105,15 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
             </tr>
           </thead>
           <tbody>
-            {unidades.length === 0 && (
+            {results.length === 0 && (
               <tr className='text-md text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                 <td colSpan={6} className='px-6 py-4 text-center'>
                   No se han encontrado unidades
                 </td>
               </tr>
             )}
-            {unidades.length > 0 &&
-              unidades.map((unidad, index) => (
+            {results.length > 0 &&
+              results.map((unidad, index) => (
                 <tr key={index} className='hover:bg-slate-50 border-b border-slate-200'>
                   <td className='p-4 py-5'>
                     <p className='block font-semibold text-slate-800'>{unidad.nombre}</p>
@@ -104,17 +133,41 @@ export const TablaUnidades = ({ unidades = [], totalUnidades, cantidadPaginas }:
                   <td className='p-4 py-5'>
                     <p className='font-semibold text-slate-500'>${unidad.precioPorNoche}</p>
                   </td>
-                  <td className='p-4 py-5'>
+                  {/* <td className='p-4 py-5'>
                     <p className='font-semibold text-slate-500'>{unidad.imagenes.join(', ')}</p>
+                  </td> */}
+                  <td className='p-4 py-5'>
+                    <button 
+                      onClick={handleShowGallery}
+                      className='group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-md shadow border-verdeIntermedio border-2'>
+                      Ver fotos
+                    </button>
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
+
+        {showGallery && (
+          <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+            <div className='bg-white p-4 rounded-lg shadow-lg max-w-lg w-full relative'>
+                <button
+                  onClick={handleCloseGallery}
+                  className='absolute top-2 right-2 text-gray-600 hover:text-gray-900 z-10'
+                  style={{ textDecoration: 'none' }}>
+                  Cerrar
+                </button>
+              <ImagesGallery
+                unidades={unidades}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       <Paginacion cantidadPaginas={cantidadPaginas} totalRegistros={totalUnidades} entidad='Unidades' />
     </div>
+    
   );
 };
 

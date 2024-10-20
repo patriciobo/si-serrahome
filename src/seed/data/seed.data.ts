@@ -69,7 +69,13 @@ export const initialData = {
 				]
 			},
 			precioPorNoche: 20000,
-			imagenes: ['imagen1', 'imagen5'],
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
 			
 		},
 		{
@@ -109,7 +115,13 @@ export const initialData = {
 				]
 			},
 			precioPorNoche: 20000,
-			imagenes: ['imagen1', 'imagen2', 'imagen3'],
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
 		},
 		{
 			tipoUnidad: 'Cabaña',
@@ -148,7 +160,13 @@ export const initialData = {
 				]
 			},
 			precioPorNoche: 20000,
-			imagenes: ['imagen1', 'imagen2', 'imagen3', 'imagen4'],
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
 		},
 	],
 
