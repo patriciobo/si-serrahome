@@ -7,6 +7,8 @@ import { revalidatePath } from 'next/cache';
 export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 	try {
 		if (await verificarDisponibilidad(reserva)) {
+			console.log('Reserva: ', reserva);
+			console.log('Cliente: ', cliente);
 			const result = await prisma.$transaction(async (prisma) => {
 				const clienteCreado = await prisma.cliente.create({
 					data: cliente,
@@ -28,7 +30,7 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 				});
 			});
 			revalidatePath('/dashboard/reservas');
-			console.log('Resultado: ', result);
+			console.log('Resultado: ', result[1]);
 			return result;
 		} else {
 			return {
