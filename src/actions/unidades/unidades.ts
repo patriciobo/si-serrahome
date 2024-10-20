@@ -49,18 +49,31 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
   }
 */
   try {
+    console.log(unidadInput.servicios)
     const unidadCreada = await prisma.unidad.create({
       data: {
         tipoUnidad: unidadInput.tipoUnidad,
         nombre: unidadInput.nombre,
         capacidad: unidadInput.capacidad,
-        // servicios: unidadInput.servicios,
         precioPorNoche: unidadInput.precioPorNoche,
         imagenes: unidadInput.imagenes,
 
       }
     
     });
+
+    if (unidadInput.servicios.length > 0) {
+      const relacionesServicios = unidadInput.servicios.map(servicioId => {
+        return {
+          unidadId: unidadCreada.id,
+          servicioId: parseInt(servicioId),  
+        };
+      });
+
+      await prisma.serviciosXUnidad.createMany({
+        data: relacionesServicios,
+      });
+    }
 
     
     revalidatePath('/dashboard/unidades');

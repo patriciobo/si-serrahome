@@ -38,7 +38,7 @@ export const ModalUnidad = () => {
       nombre: data.nombre,
       capacidad: +data.capacidad,
       servicios: serviciosSeleccionados.map((servicio) => servicio.value),
-      // servicios: data.servicios.split(',').map((serv) => serv.trim()),
+      //servicios: data.servicios.split(',').map((serv) => serv.trim()),
       precioPorNoche: data.precioPorNoche ? +data.precioPorNoche : undefined, 
       imagenes: data.imagenes.split(',').map((img) => img.trim()),
     };
