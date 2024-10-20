@@ -34,23 +34,24 @@ model Reserva {
 }
 
 model Unidad {
-  id             Int       @id @default(autoincrement())
-  tipoUnidad     String    @default("TIPO_POR_DEFECTO")
-  nombre         String
-  capacidad      Int
-  servicios      String[]
-  precioPorNoche Float?
-  imagenes       String[]
-  Reserva        Reserva[]
-  propiedadId    Int
-  propiedad      Propiedad @relation(fields: [propiedadId], references: [id])
+  id               Int                @id @default(autoincrement())
+  tipoUnidad       String             @default("TIPO_POR_DEFECTO")
+  nombre           String
+  capacidad        Int
+  servicios        String[]
+  precioPorNoche   Float?
+  imagenes         String[]
+  Reserva          Reserva[]
+  propiedadId      Int
+  propiedad        Propiedad          @relation(fields: [propiedadId], references: [id])
+  ServiciosXUnidad ServiciosXUnidad[]
 }
 
 model Cliente {
   id       Int       @id @default(autoincrement())
   nombre   String
   telefono String
-  email    String
+  email    String?
   reserva  Reserva[]
 }
 
@@ -92,4 +93,19 @@ model Propiedad {
   numero   Int
   tipo     String
   unidades Unidad[]
+}
+
+model Servicio {
+  id     Int                @id @default(autoincrement())
+  nombre String             @unique
+  unidad ServiciosXUnidad[]
+}
+
+model ServiciosXUnidad {
+  unidad     Unidad   @relation(fields: [unidadId], references: [id])
+  unidadId   Int
+  servicio   Servicio @relation(fields: [servicioId], references: [id])
+  servicioId Int
+
+  @@id([unidadId, servicioId])
 }
