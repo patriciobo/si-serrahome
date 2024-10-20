@@ -45,7 +45,8 @@ export const getReservasPaginadas = async ({
 };
 
 export async function GET(request: Request) {
-	const parametros = request.nextUrl.searchParams;
+	const url = new URL(request.url);
+  	const parametros = url.searchParams;
 	console.log('params:', parametros);
 
 	const take = Number(parametros.get('take') ?? '5');
@@ -66,10 +67,12 @@ export async function GET(request: Request) {
 	}
 	try {
 		const reservas = await getReservasPaginadas(pagina, take);
-
 		return NextResponse.json({ reservas });
 	} catch (error) {
-		return NextResponse.json(error.errors, { status: 400 });
+		if (error instanceof Error){   
+			return NextResponse.json({ error: error.message }, { status: 400 });
+		}
+		return NextResponse.json({ error: 'Ocurrió un error desconocido' }, { status: 400 });
 	}
 }
 

@@ -11,7 +11,7 @@ export const getReservasPaginadas = async ({
 	pagina = 1,
 	take = 5,
 }: OpcionesPaginacion) => {
-	if (isNaN(Number(pagina) || pagina < 1)) pagina = 1;
+	if (isNaN(Number(pagina)) || pagina < 1) pagina = 1;
 
 	try {
 		const reservas = await prisma.reserva.findMany({

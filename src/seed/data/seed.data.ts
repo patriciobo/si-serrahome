@@ -1,19 +1,172 @@
+import Unidades from "@/app/dashboard/unidades/page"
+import { connect } from "http2";
+
 export const initialData = {
+	servicios: [
+		{ nombre: 'Aire acondicionado' },
+		{ nombre: 'Pileta' },
+		{ nombre: 'Estacionamiento' },
+		{ nombre: 'Calefacción' },
+		{ nombre: 'Wifi gratuito' },
+		{ nombre: 'Desayuno incluido' },
+		{ nombre: 'TV por cable' },
+		{ nombre: 'Spa' },
+		{ nombre: 'Gimnasio' },
+		{ nombre: 'Servicio a la habitación' },
+		{ nombre: 'Restaurante' },
+		{ nombre: 'Bar' },
+		{ nombre: 'Actividades recreativas' },
+		{ nombre: 'Servicio de lavandería' },
+		{ nombre: 'Cuidado de niños' },
+		{ nombre: 'Acceso para discapacitados' },
+		{ nombre: 'Mascotas permitidas' },
+		{ nombre: 'Parrillas' },
+		{ nombre: 'Juegos infantiles' },
+		{ nombre: 'Sala de juegos' },
+		{ nombre: 'Transporte al aeropuerto' },
+		{ nombre: 'Alquiler de bicicletas' },
+		{ nombre: 'Servicio de limpieza' },
+		{ nombre: 'Camas adicionales' },
+		{ nombre: 'Servicio de guardaequipaje' },
+		{ nombre: 'Caja de seguridad' },
+	],
 	unidades: [
 		{
-			//id: 1
-			nombre: 'Cabaña 1',
+			
+			tipoUnidad: 'Cabaña',
+			nombre: 'Rosada',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
+			precioPorNoche: 20000,
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
+			
 		},
 		{
-			//id: 2
-			nombre: 'Cabaña 2',
+			tipoUnidad: 'Cabaña',
+			nombre: 'Azul',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
+			precioPorNoche: 20000,
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
 		},
 		{
-			//id: 3
-			nombre: 'Cabaña 3',
+			tipoUnidad: 'Cabaña',
+			nombre: 'Naranja',
 			capacidad: 6,
+			servicios: {
+				create: [
+					{
+						servicio: {
+							connect: {
+								id: 1,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 2,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 3,
+							}
+						}
+					},
+					{
+						servicio: {
+							connect: {
+								id: 4,
+							}
+						}
+					}
+				]
+			},
+			precioPorNoche: 20000,
+			imagenes: ['https://www.altolasflores.com.ar/assets/img/portfolio/exterior2.webp', 
+				'https://www.altolasflores.com.ar/assets/img/portfolio/exterior3.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/interior.jpeg',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion1.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
+				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
+			],
 		},
 	],
 
@@ -29,6 +182,8 @@ export const initialData = {
 			email: 'monica.geller@gmail.com',
 		},
 	],
+
+	
 
 	reservas: [
 		{
@@ -108,3 +263,4 @@ export const initialData = {
 		},
 	],
 };
+

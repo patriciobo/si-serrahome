@@ -7,9 +7,10 @@ import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 interface Props {
 	cantidadPaginas: number;
 	totalRegistros: number;
+	entidad : string;
 }
 
-export const Paginacion = ({ cantidadPaginas, totalRegistros }: Props) => {
+export const Paginacion = ({ cantidadPaginas, totalRegistros, entidad }: Props) => {
 	const pathname = usePathname();
 	const parametrosBusqueda = useSearchParams();
 	let paginaActual = Number(parametrosBusqueda.get('pagina')) ?? 1;
@@ -70,7 +71,7 @@ export const Paginacion = ({ cantidadPaginas, totalRegistros }: Props) => {
 	return (
 		<div className='flex justify-between items-center px-4 py-3'>
 			<div className='text-sm text-slate-500'>
-				Se encontraron <b>{totalRegistros}</b> reservas.
+				Se encontraron <b>{totalRegistros}</b> {entidad}.
 			</div>
 			<div className='flex space-x-1'>
 				<Link
