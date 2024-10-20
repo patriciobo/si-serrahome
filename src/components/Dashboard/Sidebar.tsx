@@ -26,6 +26,18 @@ const menuItems = [
 		title: 'Reservas',
 		subtitle: 'Disponibilidad',
 	},
+	{
+		path: '/dashboard/propiedades',
+		icon: <CiCalendar size={20} />,
+		title: 'Propiedades',
+		subtitle: 'Disponibilidad',
+	},
+	{
+		path: '/dashboard/unidades',
+		icon: <CiCalendar size={20} />,
+		title: 'Unidades',
+		subtitle: 'Disponibilidad',
+	},
 ];
 
 export const Sidebar = () => {

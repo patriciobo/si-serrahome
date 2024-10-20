@@ -17,6 +17,7 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 						...reserva,
 						clienteId: clienteCreado.id,
 						estado:
+							reserva.pagoParcial != null && 
 							reserva.pagoParcial > 0 &&
 							reserva.pagoParcial < reserva.precioTotal
 								? EstadoReserva.PAGO_PARCIAL
@@ -37,7 +38,11 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 		}
 	} catch (error) {
 		console.log(error);
-		throw new Error('Fallo al insertar reserva', error);
+		if (error instanceof Error) {
+			throw new Error('Fallo al insertar reserva', { cause: error });
+		} else {
+			throw new Error('Fallo al insertar reserva');
+		}
 	}
 };
 
@@ -64,7 +69,6 @@ async function verificarDisponibilidad(reserva: Reserva) {
 		});
 		return reservaEnConflicto ? false : true;
 	} catch (error) {
-		console.error(error);
-		return false;
+		throw new Error(`Error: ${error}`);
 	}
 }
