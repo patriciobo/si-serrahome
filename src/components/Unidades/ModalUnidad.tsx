@@ -5,7 +5,16 @@ import { useState } from 'react';
 import { insertarUnidad } from '../../actions/unidades/unidades';
 import { BiCheck } from 'react-icons/bi';
 
+import React from 'react';
+
+const tipoUnidadOptions = [
+	{ value: 'Cabaña', label: 'Cabaña' },
+	{ value: 'Habitación', label: 'Habitación' },
+];
+
+
 type Inputs = {
+<<<<<<< Updated upstream
   tipoUnidad: string;
   nombre: string;
   capacidad: number;
@@ -13,6 +22,15 @@ type Inputs = {
   precioPorNoche?: number; 
   imagenes: string; 
   //propiedadId: number;
+=======
+	tipoUnidad: string;
+	nombre: string;
+	capacidad: number;
+	servicios: string;
+	precioPorNoche?: number;
+	imagenes: string;
+	propiedadId: number;
+>>>>>>> Stashed changes
 };
 
 export const ModalUnidad = () => {
@@ -28,6 +46,7 @@ export const ModalUnidad = () => {
   } = useForm<Inputs>();
   const hasErrors = Object.keys(errors).length > 0;
 
+<<<<<<< Updated upstream
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const unidad = {
       tipoUnidad: data.tipoUnidad,
@@ -38,6 +57,19 @@ export const ModalUnidad = () => {
       imagenes: data.imagenes.split(',').map((img) => img.trim()),
       //propiedadId: data.propiedadId,  ??
     };
+=======
+	const onSubmit: SubmitHandler<Inputs> = async (data) => {
+		const unidad = {
+			tipoUnidad: data.tipoUnidad,
+			nombre: data.nombre,
+			capacidad: +data.capacidad,
+			servicios: serviciosSeleccionados.map((servicio) => servicio.value),
+			//servicios: data.servicios.split(',').map((serv) => serv.trim()),
+			precioPorNoche: data.precioPorNoche ? +data.precioPorNoche : undefined,
+			imagenes: data.imagenes.split(',').map((img) => img.trim()),
+			propiedadId: +data.propiedadId,
+		};
+>>>>>>> Stashed changes
 
     try {
       await insertarUnidad(unidad);
@@ -113,6 +145,7 @@ export const ModalUnidad = () => {
                     />
                   </div>
 
+<<<<<<< Updated upstream
                   <div className=''>
                     <label className='sr-only'>Nombre</label>
                     <input
@@ -126,6 +159,21 @@ export const ModalUnidad = () => {
                       {...register('nombre', { required: true })}
                     />
                   </div>
+=======
+									<div className=''>
+										<label className='sr-only'>Tipo de Unidad</label>
+										 <input
+											className={`w-full rounded-lg border-gray-400 text-md text-oscuro ${
+												errors.tipoUnidad
+													? 'focus:ring-red-500 focus:outline-red-300 border-2 border-red-500'
+													: 'focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+											}`}
+											placeholder='Tipo de Unidad (e.g. Cabaña, Habitación)'
+											type='text'
+											{...register('tipoUnidad', { required: true })}
+										/> 
+									</div>
+>>>>>>> Stashed changes
 
                   <div className=''>
                     <label className='sr-only'>Capacidad</label>
@@ -170,6 +218,7 @@ export const ModalUnidad = () => {
                     />
                   </div>
 
+<<<<<<< Updated upstream
                   <div className=''>
                     <label className='sr-only'>Imágenes</label>
                     <input
@@ -211,4 +260,76 @@ export const ModalUnidad = () => {
       )}
     </>
   );
+=======
+									<div className=''>
+										<label className='sr-only'>Precio por Noche</label>
+										<input
+											className={`w-full rounded-lg border-gray-400 text-md text-oscuro ${
+												errors.precioPorNoche
+													? 'focus:ring-red-500 focus:outline-red-300 border-2 border-red-500'
+													: 'focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+											}`}
+											placeholder='Precio por Noche'
+											type='number'
+											{...register('precioPorNoche')}
+										/>
+									</div>
+
+									<div className=''>
+										<label className='sr-only'>Imágenes</label>
+										<input
+											className='w-full rounded-lg border-gray-400 text-md text-oscuro focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+											placeholder='URLs de Imágenes (separadas por comas)'
+											type='text'
+											{...register('imagenes', {
+												required: true,
+												validate: (value) => {
+													return value.trim().length > 0;
+												},
+											})}
+										/>
+									</div>
+									<div className=''>
+										<label className='sr-only'>Propiedad ID</label>
+										<input
+											className={`w-full rounded-lg border-gray-400 text-md text-oscuro ${
+												errors.propiedadId // Add error check for propiedadId
+												? 'focus:ring-red-500 focus:outline-red-300 border-2 border-red-500'
+												: 'focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+											}`}
+											placeholder='Propiedad ID'
+											type='number'
+											{...register('propiedadId', { required: true })} // Register propiedadId
+										/>
+									</div>
+									
+									<div className='flex mt-4 items-center justify-end'>
+										{hasErrors && (
+											<span className='text-red-500 mr-4'>
+												* Campos Requeridos.
+											</span>
+										)}
+										<button
+											className='shadow text-md bg-white border mr-4 border-naranja hover:bg-naranja hover:text-white focus:outline-none text-naranja font-bold py-2 px-4 rounded'
+											type='button'
+											onClick={() => setIsOpen(false)}
+										>
+											Cancelar
+										</button>
+										<button
+											className='shadow text-md bg-verdeIntermedio hover:bg-verdeClaro focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+											type='submit'
+										>
+											Guardar Unidad
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</section>
+				</div>
+			)}
+		</>
+	);
+>>>>>>> Stashed changes
 };

@@ -5,6 +5,7 @@ import { Unidad } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 interface NuevaUnidadInput {
+<<<<<<< Updated upstream
   tipoUnidad: string;
   nombre: string;
   capacidad: number;
@@ -19,6 +20,23 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
   if (!unidadInput.tipoUnidad) {
     throw new Error('El tipo de unidad es obligatorio.');
   }
+=======
+	tipoUnidad: string;
+	nombre: string;
+	capacidad: number;
+	servicios: string[];
+	precioPorNoche?: number;
+	imagenes: string[];
+	propiedadId: number;
+}
+
+export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
+	console.log('Unidad Input: ', unidadInput);//
+
+	if (!unidadInput.tipoUnidad) {
+		throw new Error('El tipo de unidad es obligatorio.');
+	}
+>>>>>>> Stashed changes
 
   if (!unidadInput.nombre) {
     throw new Error('El nombre de la unidad es obligatorio.');
@@ -49,6 +67,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
     }
   }
 */
+<<<<<<< Updated upstream
   try {
     const unidadCreada = await prisma.unidad.create({
       data: {
@@ -61,6 +80,20 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
         //propiedadId: unidadInput.propiedadId,
       },
     });
+=======
+	try {
+		console.log(unidadInput.servicios);
+		const unidadCreada = await prisma.unidad.create({
+			data: {
+				tipoUnidad: unidadInput.tipoUnidad,
+				nombre: unidadInput.nombre,
+				capacidad: unidadInput.capacidad,
+				precioPorNoche: unidadInput.precioPorNoche,
+				imagenes: unidadInput.imagenes,
+				propiedadId: unidadInput.propiedadId,
+			},
+		});
+>>>>>>> Stashed changes
 
     
     revalidatePath('/dashboard/unidades');
