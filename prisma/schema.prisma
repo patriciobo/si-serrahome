@@ -34,17 +34,16 @@ model Reserva {
 }
 
 model Unidad {
-  id               Int                @id @default(autoincrement())
-  tipoUnidad       String             @default("TIPO_POR_DEFECTO")
-  nombre           String
-  capacidad        Int
-  servicios        String[]
-  precioPorNoche   Float?
-  imagenes         String[]
-  Reserva          Reserva[]
-  propiedadId      Int
-  propiedad        Propiedad          @relation(fields: [propiedadId], references: [id])
-  ServiciosXUnidad ServiciosXUnidad[]
+  id             Int                @id @default(autoincrement())
+  tipoUnidad     String             @default("TIPO_POR_DEFECTO")
+  nombre         String
+  capacidad      Int
+  servicios      ServiciosXUnidad[]
+  precioPorNoche Float?
+  imagenes       String[]
+  Reserva        Reserva[]
+  propiedadId    Int
+  propiedad      Propiedad          @relation(fields: [propiedadId], references: [id])
 }
 
 model Cliente {

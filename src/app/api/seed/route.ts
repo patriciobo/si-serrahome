@@ -55,18 +55,33 @@ export async function GET(request: Request) {
 			capacidad: unidad.capacidad,
 			precioPorNoche: unidad.precioPorNoche,
 			imagenes: unidad.imagenes,
+			propiedadId: unidad.propiedadId,
 		})),
 	});
 
-	for (const unidad of initialData.unidades) {
-		for (const servicio of unidad.servicios.create) {
-			await prisma.serviciosXUnidad.create({
-				data: {
-					unidad: { connect: { nombre: unidad.nombre } }, // O usa id si es conocido
-					servicio: { connect: { id: servicio.servicio.connect.id } },
-				},
-			});
-		}
+	const unidades = await prisma.unidad.findMany({});
+
+	for (const unidad of unidades) {
+		console.log('Unidades: ', unidades);
+		console.log('Unidad: ', unidad);
+		// for (const servicio of initialData.servicios) {
+		// 	const sxu = await prisma.serviciosXUnidad.create({
+		// 		data: {
+		// 			unidad: {
+		// 				connect: {
+		// 					id: unidad.id, // Connect using the existing Unidad id
+		// 				},
+		// 			},
+		// 			servicio: {
+		// 				connect: {
+		// 					id: servicio.id, // Connect using the existing Servicio id
+		// 				},
+		// 			},
+		// 		},
+		// 	});
+
+		// 	console.log(sxu);
+		// }
 	}
 
 	const clientesCreado = await prisma.cliente.createMany({

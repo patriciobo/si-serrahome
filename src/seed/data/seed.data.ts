@@ -72,6 +72,7 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Rosada',
 			capacidad: 6,
+			propiedadId: 1,
 			servicios: {
 				create: [
 					{
@@ -118,6 +119,7 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Azul',
 			capacidad: 6,
+			propiedadId: 1,
 			servicios: {
 				create: [
 					{
@@ -164,6 +166,7 @@ export const initialData = {
 			tipoUnidad: 'Cabaña',
 			nombre: 'Naranja',
 			capacidad: 6,
+			propiedadId: 1,
 			servicios: {
 				create: [
 					{
