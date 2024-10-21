@@ -11,6 +11,12 @@ interface NuevaUnidadInput {
 	servicios: string[];
 	precioPorNoche?: number;
 	imagenes: string[];
+	tipoUnidad: string;
+	nombre: string;
+	capacidad: number;
+	servicios: string[];
+	precioPorNoche?: number;
+	imagenes: string[];
 }
 
 export const getUnidadesPorPropiedad = async (propiedadId): Unidad[] => {
@@ -32,11 +38,26 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	if (!unidadInput.tipoUnidad) {
 		throw new Error('El tipo de unidad es obligatorio.');
 	}
+	if (!unidadInput.tipoUnidad) {
+		throw new Error('El tipo de unidad es obligatorio.');
+	}
 
 	if (!unidadInput.nombre) {
 		throw new Error('El nombre de la unidad es obligatorio.');
 	}
+	if (!unidadInput.nombre) {
+		throw new Error('El nombre de la unidad es obligatorio.');
+	}
 
+	if (
+		!unidadInput.capacidad ||
+		unidadInput.capacidad <= 0 ||
+		!Number.isInteger(unidadInput.capacidad)
+	) {
+		throw new Error(
+			'La capacidad debe ser un número mayor a 0 y no debe contener decimales.'
+		);
+	}
 	if (
 		!unidadInput.capacidad ||
 		unidadInput.capacidad <= 0 ||
@@ -53,6 +74,12 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	) {
 		throw new Error('El precio por noche debe ser un valor numérico.');
 	}
+	if (
+		unidadInput.precioPorNoche !== undefined &&
+		isNaN(unidadInput.precioPorNoche)
+	) {
+		throw new Error('El precio por noche debe ser un valor numérico.');
+	}
 
 	if (
 		!Array.isArray(unidadInput.servicios) ||
@@ -60,7 +87,19 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	) {
 		throw new Error('Debe seleccionar al menos un servicio.');
 	}
+	if (
+		!Array.isArray(unidadInput.servicios) ||
+		unidadInput.servicios.length === 0
+	) {
+		throw new Error('Debe seleccionar al menos un servicio.');
+	}
 
+	if (
+		!Array.isArray(unidadInput.imagenes) ||
+		unidadInput.imagenes.length === 0
+	) {
+		throw new Error('Debe proporcionar al menos una imagen');
+	}
 	if (
 		!Array.isArray(unidadInput.imagenes) ||
 		unidadInput.imagenes.length === 0
@@ -85,6 +124,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 
 		return unidadCreada;
 	} catch (error) {
-		throw new Error(`Error: ${error}`);
+		console.error(error);
+		throw new Error('Fallo al insertar la unidad.');
 	}
 };
