@@ -76,6 +76,7 @@ export const initialData = {
 				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
 				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
 			],
+			propiedadId: 1,
 			
 		},
 		{
@@ -122,6 +123,7 @@ export const initialData = {
 				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
 				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
 			],
+			propiedadId: 1,
 		},
 		{
 			tipoUnidad: 'Cabaña',
@@ -167,8 +169,48 @@ export const initialData = {
 				'https://www.altolasflores.com.ar/assets/img/portfolio/habitacion2.webp',
 				'https://www.altolasflores.com.ar/assets/img/portfolio/pileta2.webp'
 			],
+			propiedadId: 1,
+		},
+		
+	],
+
+	paises: [
+		{
+			// id: 1,
+			nombre: 'Argentina',
 		},
 	],
+	provincias: [
+		{
+			// id: 1,
+			nombre: 'Cordoba',
+			paisId: 1,
+		},
+	],
+	ciudades: [
+		{
+			// id: 1,
+			nombre: 'General Paz',
+			provinciaId: 1,
+		},
+	],
+	calles: [
+		{
+			// id: 1,
+			nombre: 'Velez Sarfield',
+			ciudadId: 1,
+		},
+	],
+	propiedades: [
+		{
+			// id: 1,
+			nombre: 'Alto las flores',
+			calleId: 1,
+			numero: 123,
+			tipo: 'Casa',
+		},
+	],
+
 
 	clientes: [
 		{
@@ -183,7 +225,6 @@ export const initialData = {
 		},
 	],
 
-	
 
 	reservas: [
 		{
