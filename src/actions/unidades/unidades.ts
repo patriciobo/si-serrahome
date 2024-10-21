@@ -11,6 +11,7 @@ interface NuevaUnidadInput {
 	servicios: string[];
 	precioPorNoche?: number;
 	imagenes: string[];
+	propiedad: number;
 }
 
 export const getUnidadesPorPropiedad = async (propiedadId: Unidad[]) => {
@@ -104,14 +105,28 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	try {
 		const unidadCreada = await prisma.unidad.create({
 			data: {
-				tipoUnidad: unidadInput.tipoUnidad,
-				nombre: unidadInput.nombre,
-				capacidad: unidadInput.capacidad,
-				servicios: unidadInput.servicios,
-				precioPorNoche: unidadInput.precioPorNoche,
-				imagenes: unidadInput.imagenes,
-			},
-		});
+			  tipoUnidad: unidadInput.tipoUnidad,
+			  nombre: unidadInput.nombre,
+			  capacidad: unidadInput.capacidad,
+			  precioPorNoche: unidadInput.precioPorNoche,
+			  imagenes: unidadInput.imagenes,
+			  propiedad: { connect: { id: 1  }}
+	  
+			}
+		})
+
+		if (unidadInput.servicios.length > 0) {
+			const relacionesServicios = unidadInput.servicios.map(servicioId => {
+			  return {
+				unidadId: unidadCreada.id,
+				servicioId: parseInt(servicioId),  
+			  };
+			});
+	  
+			await prisma.serviciosXUnidad.createMany({
+			  data: relacionesServicios,
+			});
+		  }
 
 		revalidatePath('/dashboard/unidades');
 		console.log('Unidad Creada: ', unidadCreada);
