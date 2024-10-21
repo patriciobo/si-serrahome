@@ -11,15 +11,9 @@ interface NuevaUnidadInput {
 	servicios: string[];
 	precioPorNoche?: number;
 	imagenes: string[];
-	tipoUnidad: string;
-	nombre: string;
-	capacidad: number;
-	servicios: string[];
-	precioPorNoche?: number;
-	imagenes: string[];
 }
 
-export const getUnidadesPorPropiedad = async (propiedadId): Unidad[] => {
+export const getUnidadesPorPropiedad = async (propiedadId: Unidad[]) => {
 	try {
 		console.log('propId: ', propiedadId);
 		const unidades = await prisma.unidad.findMany({
