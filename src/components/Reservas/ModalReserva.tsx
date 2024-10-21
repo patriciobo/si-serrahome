@@ -104,7 +104,6 @@ export const ModalReserva = ({
 			fechaInicio: data.rangoFechas[0],
 			fechaFin: data.rangoFechas[1],
 			unidadId: +data.unidadId,
-			propiedadId: +data.propiedadId,
 		};
 
 		const cliente = {

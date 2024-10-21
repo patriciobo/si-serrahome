@@ -36,7 +36,6 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 				});
 			});
 			revalidatePath('/dashboard/reservas');
-			console.log('Resultado: ', result[1]);
 			return result;
 		} else {
 			return {
@@ -46,11 +45,8 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 		}
 	} catch (error) {
 		console.log(error);
-		if (error instanceof Error) {
-			throw new Error('Fallo al insertar reserva', { cause: error });
-		} else {
-			throw new Error('Fallo al insertar reserva');
-		}
+
+		throw new Error('Fallo al insertar reserva: ', error);
 	}
 };
 
