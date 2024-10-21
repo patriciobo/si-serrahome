@@ -25,6 +25,11 @@ export const getReservasPaginadas = async ({
 						email: true,
 					},
 				},
+				unidad: {
+					select: {
+						nombre: true,
+					},
+				},
 			},
 			orderBy: { fechaHoraCreacion: 'desc' },
 		});
