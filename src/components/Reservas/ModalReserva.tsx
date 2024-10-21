@@ -88,6 +88,8 @@ export const ModalReserva = ({
 
 		if (propiedadId > 0 && cantPersonas && rangoFechas[0] && rangoFechas[1]) {
 			buscarUnidades();
+		} else {
+			setUnidades();
 		}
 	}, [propiedadId, cantPersonas, rangoFechas]);
 
