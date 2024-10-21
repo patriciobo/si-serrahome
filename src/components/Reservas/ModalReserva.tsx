@@ -240,9 +240,16 @@ export const ModalReserva = ({
 								<hr className='border-t border-gray-300 my-4' />
 								<div className='grid grid-cols-1 gap-4 text-center sm:grid-cols-2 py-2'>
 									<select
-										className='rounded-lg text-oscuro'
+										className={`rounded-lg text-oscuro ${
+											errors.propiedadId
+												? 'focus:ring-red-400 focus:outline-red-400 border-2 focus:border border-red-400 focus:border-red-400'
+												: 'focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+										}`}
 										defaultValue={0}
-										{...register('propiedadId', { required: true })}
+										{...register('propiedadId', {
+											required: true,
+											validate: (value) => value > 0,
+										})}
 									>
 										Propiedades
 										<option value={0}>Seleccionar Propiedad *</option>
@@ -254,9 +261,16 @@ export const ModalReserva = ({
 											))}
 									</select>
 									<select
-										className='rounded-lg text-oscuro'
+										className={`rounded-lg text-oscuro ${
+											errors.unidadId
+												? 'focus:ring-red-400 focus:outline-red-400 border-2 focus:border border-red-400 focus:border-red-400'
+												: 'focus:ring-verdeOscuro focus:border-verdeIntermedio focus:outline-verdeClaro'
+										}`}
 										defaultValue={0}
-										{...register('unidadId', { required: true })}
+										{...register('unidadId', {
+											required: true,
+											validate: (value) => value > 0,
+										})}
 									>
 										Unidades
 										<option value={0}>Seleccionar Unidad *</option>
