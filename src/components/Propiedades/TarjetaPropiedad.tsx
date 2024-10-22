@@ -1,19 +1,24 @@
+"use client";
 import React from "react";
 import { Propiedad } from "@prisma/client";
-// import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
 
 interface Props {
   propiedades: Propiedad[];
 }
 
 export const TarjetaPropiedad = ({ propiedades = [] }: Props) => {
+  const router = useRouter();
+  const handleCardClick = (propiedadId: number) => {
+    router.push(`/dashboard/propiedades/unidades/${propiedadId}`);
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {propiedades.map((propiedad, index) => (
+      {propiedades.map((propiedad) => (
         <div
-          key={index}
+          key={propiedad.id}
           className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-xl p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white cursor-pointer"
-          // onClick={() => redirect(`/dashboard/propiedades/${propiedad.id}`)}
+          onClick={() => handleCardClick(propiedad.id)}
         >
           <div className="w-full md:w-1/3 bg-white grid place-items-center">
             <img
