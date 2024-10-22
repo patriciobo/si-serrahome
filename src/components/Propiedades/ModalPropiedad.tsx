@@ -29,7 +29,7 @@ export const ModalPropiedad = () => {
     const propiedad = {
       tipo: data.tipo,
       nombre: data.nombre,
-      numero: 1,
+      numero: +data.numero,
       calleId: 1,
     };
 
@@ -177,6 +177,7 @@ export const ModalPropiedad = () => {
                         }`}
                         placeholder="Numero de Calle"
                         type="number"
+                        id="numero de calle"
                         {...register("numero", { required: true })}
                       />
                     </div>

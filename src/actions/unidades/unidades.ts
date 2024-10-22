@@ -11,12 +11,7 @@ interface NuevaUnidadInput {
 	servicios: string[];
 	precioPorNoche?: number;
 	imagenes: string[];
-	tipoUnidad: string;
-	nombre: string;
-	capacidad: number;
-	servicios: string[];
-	precioPorNoche?: number;
-	imagenes: string[];
+	propiedadId: number;
 }
 
 export const getUnidadesPorPropiedad = async (propiedadId): Unidad[] => {
@@ -108,6 +103,17 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	}
 
 	try {
+
+	/*
+  const formatosPermitidos = ['jpg', 'jpeg', 'png'];
+  for (const imagen of unidadInput.imagenes) {
+    const extension = imagen.split('.').pop()?.toLowerCase();
+    if (!extension || !formatosPermitidos.includes(extension)) {
+      throw new Error('El formato de las imágenes debe ser JPG o PNG.');
+    }
+  }
+*/	
+	try {
 		const unidadCreada = await prisma.unidad.create({
 			data: {
 				tipoUnidad: unidadInput.tipoUnidad,
@@ -116,6 +122,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 				servicios: unidadInput.servicios,
 				precioPorNoche: unidadInput.precioPorNoche,
 				imagenes: unidadInput.imagenes,
+				propiedadId: unidadInput.propiedadId.propiedadId,
 			},
 		});
 
@@ -124,7 +131,6 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 
 		return unidadCreada;
 	} catch (error) {
-		console.error(error);
-		throw new Error('Fallo al insertar la unidad.');
+		throw new Error(`Error: ${error}`);
 	}
 };

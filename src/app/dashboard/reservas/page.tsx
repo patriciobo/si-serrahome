@@ -1,34 +1,34 @@
-import prisma from '@/lib/prisma';
-import Tabla from '../../../components/Reservas/Tabla';
-import { Reserva } from '@prisma/client';
-import { BotonRegistrarReserva } from '../../../components/Reservas/BotonRegistrarReserva';
-import { getReservasPaginadas } from '../../../actions/reservas/reservas-paginadas';
+import prisma from "@/lib/prisma";
+import Tabla from "../../../components/Reservas/Tabla";
+import { Reserva } from "@prisma/client";
+import { BotonRegistrarReserva } from "../../../components/Reservas/BotonRegistrarReserva";
+import { getReservasPaginadas } from "../../../actions/reservas/reservas-paginadas";
 
 export const metadata = {
-	title: 'Reservas',
-	description: 'Reservas',
+  title: "Reservas",
+  description: "Reservas",
 };
 
 interface Props {
-	searchParams: {
-		pagina?: string;
-	};
+  searchParams: {
+    pagina?: string;
+  };
 }
 
 export default async function Reservas({ searchParams }: Props) {
-	const pagina = searchParams.pagina ? parseInt(searchParams.pagina) : 1;
+  const pagina = searchParams.pagina ? parseInt(searchParams.pagina) : 1;
 
-	const { reservas, cantidadPaginas, totalReservas } =
-		await getReservasPaginadas({ pagina });
+  const { reservas, cantidadPaginas, totalReservas } =
+    await getReservasPaginadas({ pagina });
 
-	return (
-		<div className='flex flex-col items-center justify-start w-full h-full'>
-			<BotonRegistrarReserva />
-			<Tabla
-				reservas={reservas}
-				totalReservas={totalReservas}
-				cantidadPaginas={cantidadPaginas}
-			/>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-start w-full h-full">
+      <BotonRegistrarReserva />
+      <Tabla
+        reservas={reservas}
+        totalReservas={totalReservas}
+        cantidadPaginas={cantidadPaginas}
+      />
+    </div>
+  );
 }
