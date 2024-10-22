@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import Tabla from "../../../components/Reservas/Tabla";
 import { Reserva } from "@prisma/client";
-import { ModalReserva } from "../../../components/Reservas/ModalReserva";
+import { BotonRegistrarReserva } from "../../../components/Reservas/BotonRegistrarReserva";
 import { getReservasPaginadas } from "../../../actions/reservas/reservas-paginadas";
 
 export const metadata = {
@@ -23,7 +23,7 @@ export default async function Reservas({ searchParams }: Props) {
 
   return (
     <div className="flex flex-col items-center justify-start w-full h-full">
-      <ModalReserva />
+      <BotonRegistrarReserva />
       <Tabla
         reservas={reservas}
         totalReservas={totalReservas}

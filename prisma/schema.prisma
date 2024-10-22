@@ -21,7 +21,7 @@ model Reserva {
   cantidadPersonas Int
   precioTotal      Float
   estado           EstadoReserva @default(PENDIENTE)
-  pagoParcial      Float?
+  pagoParcial      Float?        @default(0)
 
   unidad  Unidad  @relation(fields: [unidadId], references: [id])
   cliente Cliente @relation(fields: [clienteId], references: [id])

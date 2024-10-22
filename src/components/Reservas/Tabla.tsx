@@ -9,6 +9,10 @@ interface Props {
 	cantidadPaginas: number;
 	totalReservas: number;
 	paginaActual: number;
+	reservas: Reserva[];
+	cantidadPaginas: number;
+	totalReservas: number;
+	paginaActual: number;
 }
 
 export const Tabla = ({
@@ -65,6 +69,11 @@ export const Tabla = ({
 							<th className='p-4 border-b border-slate-200 bg-slate-50'>
 								<p className=' font-normal leading-none text-slate-500'>
 									Contacto
+								</p>
+							</th>
+							<th className='p-4 border-b border-slate-200 bg-slate-50'>
+								<p className=' font-normal leading-none text-slate-500'>
+									Unidad
 								</p>
 							</th>
 							<th className='p-4 border-b border-slate-200 bg-slate-50'>
@@ -128,6 +137,9 @@ export const Tabla = ({
 											</p>
 										</div>
 									)}
+								</td>
+								<td>
+									<p>{reserva.unidad.nombre}</p>
 								</td>
 								<td className='p-4 py-5'>
 									<p className='font-bold text-slate-500'>

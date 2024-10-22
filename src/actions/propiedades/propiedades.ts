@@ -1,62 +1,78 @@
 'use server';
 import prisma from '@/lib/prisma';
+import { Propiedad } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 interface NuevaPropiedadInput {
-  tipo: string;
-  nombre: string;
-  numero: number;
-  calleId: number;
+	tipo: string;
+	nombre: string;
+	numero: number;
+	calleId: number;
 }
 
-export const insertarPropiedad = async (propiedadInput: NuevaPropiedadInput) => {
-  if (!propiedadInput.tipo) {
-    throw new Error('El tipo de propiedad es obligatorio.');
-  }
-  if (!propiedadInput.nombre) {
-    throw new Error('El nombre de la propiedad es obligatorio.');
-  }
-  if (!propiedadInput.numero || propiedadInput.numero <= 0 || !Number.isInteger(propiedadInput.numero)) {
-    throw new Error('El número de la calle debe ser entero y positivo');
-  }
-  if (!propiedadInput.calleId) {
-    throw new Error('El ID de la calle es obligatorio.');
-  }
+export const getAllPropiedades = async (): Propiedad[] => {
+	try {
+		const propiedades = await prisma.propiedad.findMany({});
 
-  try {
-    const propiedadCreada = await prisma.propiedad.create({
-      data: {
-        tipo: propiedadInput.tipo,
-        nombre: propiedadInput.nombre,
-        numero: propiedadInput.numero,
-        calleId: propiedadInput.calleId,
+		return propiedades;
+	} catch (error) {
+		throw new Error('Error al obtener las propiedades', error);
+	}
+};
 
-      },
-      include: {
-        calle: {
-          include: {
-            ciudad: {
-              include: {
-                provincia: {
-                  include: {
-                    pais: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
+export const insertarPropiedad = async (
+	propiedadInput: NuevaPropiedadInput
+) => {
+	if (!propiedadInput.tipo) {
+		throw new Error('El tipo de propiedad es obligatorio.');
+	}
+	if (!propiedadInput.nombre) {
+		throw new Error('El nombre de la propiedad es obligatorio.');
+	}
+	if (
+		!propiedadInput.numero ||
+		propiedadInput.numero <= 0 ||
+		!Number.isInteger(propiedadInput.numero)
+	) {
+		throw new Error('El número de la calle debe ser entero y positivo');
+	}
+	if (!propiedadInput.calleId) {
+		throw new Error('El ID de la calle es obligatorio.');
+	}
 
-    revalidatePath('/dashboard/propiedades');
-    console.log('Propiedad Creada: ', propiedadCreada);
-    
-    const pais = propiedadCreada.calle.ciudad.provincia.pais;
-    console.log('País de la Propiedad: ', pais.nombre);
+	try {
+		const propiedadCreada = await prisma.propiedad.create({
+			data: {
+				tipo: propiedadInput.tipo,
+				nombre: propiedadInput.nombre,
+				numero: propiedadInput.numero,
+				calleId: propiedadInput.calleId,
+			},
+			include: {
+				calle: {
+					include: {
+						ciudad: {
+							include: {
+								provincia: {
+									include: {
+										pais: true,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		});
 
-    return propiedadCreada;
-  } catch (error) {
-    throw new Error(`Error: ${error}`);
-  }
+		revalidatePath('/dashboard/propiedades');
+		console.log('Propiedad Creada: ', propiedadCreada);
+
+		const pais = propiedadCreada.calle.ciudad.provincia.pais;
+		console.log('País de la Propiedad: ', pais.nombre);
+
+		return propiedadCreada;
+	} catch (error) {
+		throw new Error(`Error: ${error}`);
+	}
 };
