@@ -11,7 +11,7 @@ interface NuevaUnidadInput {
 	servicios: string[];
 	precioPorNoche?: number;
 	imagenes: string[];
-	propiedad: number;
+	propiedadId: number;
 }
 
 export const getUnidadesPorPropiedad = async (propiedadId: Unidad[]) => {
@@ -110,7 +110,7 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 			  capacidad: unidadInput.capacidad,
 			  precioPorNoche: unidadInput.precioPorNoche,
 			  imagenes: unidadInput.imagenes,
-			  propiedad: { connect: { id: 1  }}
+			  propiedadId: unidadInput.propiedadId.propiedadId,
 	  
 			}
 		})
@@ -133,7 +133,6 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 
 		return unidadCreada;
 	} catch (error) {
-		console.error(error);
-		throw new Error('Fallo al insertar la unidad.');
+		throw new Error(`Error: ${error}`);
 	}
 };
