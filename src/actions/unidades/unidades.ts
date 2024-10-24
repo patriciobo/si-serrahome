@@ -14,7 +14,7 @@ interface NuevaUnidadInput {
 	propiedadId: number;
 }
 
-export const getUnidadesPorPropiedad = async (propiedadId): Unidad[] => {
+export const getUnidadesPorPropiedad = async (propiedadId: Unidad[]) => {
 	try {
 		console.log('propId: ', propiedadId);
 		const unidades = await prisma.unidad.findMany({
@@ -103,28 +103,30 @@ export const insertarUnidad = async (unidadInput: NuevaUnidadInput) => {
 	}
 
 	try {
-
-	/*
-  const formatosPermitidos = ['jpg', 'jpeg', 'png'];
-  for (const imagen of unidadInput.imagenes) {
-    const extension = imagen.split('.').pop()?.toLowerCase();
-    if (!extension || !formatosPermitidos.includes(extension)) {
-      throw new Error('El formato de las imágenes debe ser JPG o PNG.');
-    }
-  }
-*/	
-	try {
 		const unidadCreada = await prisma.unidad.create({
 			data: {
-				tipoUnidad: unidadInput.tipoUnidad,
-				nombre: unidadInput.nombre,
-				capacidad: unidadInput.capacidad,
-				servicios: unidadInput.servicios,
-				precioPorNoche: unidadInput.precioPorNoche,
-				imagenes: unidadInput.imagenes,
-				propiedadId: unidadInput.propiedadId.propiedadId,
-			},
-		});
+			  tipoUnidad: unidadInput.tipoUnidad,
+			  nombre: unidadInput.nombre,
+			  capacidad: unidadInput.capacidad,
+			  precioPorNoche: unidadInput.precioPorNoche,
+			  imagenes: unidadInput.imagenes,
+			  propiedadId: unidadInput.propiedadId.propiedadId,
+	  
+			}
+		})
+
+		if (unidadInput.servicios.length > 0) {
+			const relacionesServicios = unidadInput.servicios.map(servicioId => {
+			  return {
+				unidadId: unidadCreada.id,
+				servicioId: parseInt(servicioId),  
+			  };
+			});
+	  
+			await prisma.serviciosXUnidad.createMany({
+			  data: relacionesServicios,
+			});
+		  }
 
 		revalidatePath('/dashboard/unidades');
 		console.log('Unidad Creada: ', unidadCreada);
