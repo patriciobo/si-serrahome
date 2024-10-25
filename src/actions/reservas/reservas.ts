@@ -17,7 +17,7 @@ export const insertarReserva = async (reserva: Reserva, cliente: Cliente) => {
 			console.log('Cliente: ', cliente);
 			const result = await prisma.$transaction(async (prisma) => {
 				const clienteCreado = await prisma.cliente.create({
-					data: cliente,
+					data: cliente, 
 				});
 
 				const reservaCreada = await prisma.reserva.create({
@@ -122,4 +122,35 @@ export const getUnidadesDisponibles = async (
 		console.log('Error: ', error);
 		throw new Error('Error al obtener las unidades', error);
 	}
+};
+
+export const getReservasCalendario = async (year: number) => {
+  try {
+    const fechaInicio = new Date(`${year-1}-12-01T00:00:00.000Z`);
+    const fechaFin = new Date(`${year + 1}-01-10T23:59:59.999Z`);
+
+    return await prisma.reserva.findMany({
+      where: {
+        fechaInicio: {
+          gte: fechaInicio,
+        },
+
+        fechaFin: {
+          lte: fechaFin,
+        },
+      },
+	  include: {
+		cliente: {
+			select: {
+				nombre: true,
+				telefono: true,
+				email: true,
+			},
+		}
+	  }
+    });
+  } catch (error) {
+    console.log("Error: ", error);
+    throw new Error("Error al obtener las reservas de este año", error);
+  }
 };
